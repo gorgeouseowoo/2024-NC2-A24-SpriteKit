@@ -8,81 +8,60 @@
 import SpriteKit
 import GameplayKit
 
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate {
     
-    private var label : SKLabelNode?
-    private var spinnyNode : SKShapeNode?
+    //MARK: - 타이머 컨테이너
+    var itemHealthyTimer = Timer()
+    var itemHealthyInterval: TimeInterval = 1.5
     
     override func didMove(to view: SKView) {
         
-        // Get label node from scene and store it for use later
-        self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
-        if let label = self.label {
-            label.alpha = 0.0
-            label.run(SKAction.fadeIn(withDuration: 2.0))
-        }
         
-        // Create shape node to use during mouse interaction
-        let w = (self.size.width + self.size.height) * 0.05
-        self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
+        //MARK: - 배경 image 추가
+        let background = SKSpriteNode(imageNamed: Image.background)
+        background.position = CGPoint(x: size.width / 2, y: size.height / 2)
+        background.zPosition = Layer.background
+        background.xScale = 0.3
+        background.yScale = 0.3
+        self.addChild(background)
+
+        itemHealthyTimer = setTimer(interval: itemHealthyInterval, function: self.additemHealthy)
+    }
+    
+    //MARK: - itemHealthy 추가 함수
+    func additemHealthy() {
+//        let randomItemHealthy = UInt32.random(in: 0...2)
+        let randomItemHealthy = arc4random_uniform(UInt32(3)) + 1 // 3가지 중 랜덤 선택
+        let randomXPos = CGFloat(arc4random_uniform(UInt32(self.size.width))) // 위치 랜덤
+        let randomSpeed = TimeInterval(arc4random_uniform(UInt32(5)) + 5) // Speed 랜덤
         
-        if let spinnyNode = self.spinnyNode {
-            spinnyNode.lineWidth = 2.5
-            
-            spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(Double.pi), duration: 1)))
-            spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
-                                              SKAction.fadeOut(withDuration: 0.5),
-                                              SKAction.removeFromParent()]))
-        }
-    }
-    
-    
-    func touchDown(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.green
-            self.addChild(n)
-        }
-    }
-    
-    func touchMoved(toPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.blue
-            self.addChild(n)
-        }
-    }
-    
-    func touchUp(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.red
-            self.addChild(n)
-        }
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let label = self.label {
-            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
-        }
+//        let texture = Atlas.gameobject.textureNamed("itemHealthy\(randomItemHealthy)")
         
-        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
+//        let itemHealthy = SKSpriteNode(texture: texture)
+        let itemHealthy = SKSpriteNode(imageNamed: "itemHealthy\(randomItemHealthy)")
+        
+//        itemHealthy.name = "GameObjects/itemHealthy\(randomItemHealthy)"
+        itemHealthy.name = "itemHealthy"
+        itemHealthy.xScale = 0.25
+        itemHealthy.yScale = 0.25
+        itemHealthy.position = CGPoint(x: randomXPos, y: self.size.height + itemHealthy.size.height) // 화면에서 보이지 않는 바로 위
+        itemHealthy.zPosition = Layer.itemHealthy
+        
+        self.addChild(itemHealthy)
+        
+        let moveAct = SKAction.moveTo(y: -itemHealthy.size.height, duration: randomSpeed) //화면 바깥으로 보낸다
+        let removeAct = SKAction.removeFromParent() //사용되지 않은 객체를 화면에서 삭제
+        
+        itemHealthy.run(SKAction.sequence([moveAct, removeAct]))
     }
     
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchMoved(toPoint: t.location(in: self)) }
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-    }
-    
-    
-    override func update(_ currentTime: TimeInterval) {
-        // Called before each frame is rendered
+    //MARK: - 타이머 함수
+    func setTimer(interval: TimeInterval, function:@escaping () -> Void) -> Timer {
+        let timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { _ in
+            function()
+        }
+        timer.tolerance = interval * 0.2 // 0.2초 정도 느려도 됨
+        
+        return timer
     }
 }
