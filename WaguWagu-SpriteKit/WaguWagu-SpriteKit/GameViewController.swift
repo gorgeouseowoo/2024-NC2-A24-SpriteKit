@@ -7,7 +7,6 @@
 
 import UIKit
 import SpriteKit
-import GameplayKit
 
 class GameViewController: UIViewController {
 
@@ -15,22 +14,24 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         
         if let view = self.view as! SKView? {
-            // Load the SKScene from 'GameScene.sks'
-            if let scene = SKScene(fileNamed: "GameScene") {
-                // Set the scale mode to scale to fit the window
-                scene.scaleMode = .aspectFill
-                
-                // Present the scene
-                view.presentScene(scene)
-            }
-            
-            view.ignoresSiblingOrder = true
-            
-            view.showsFPS = true
-            view.showsNodeCount = true
-        }
+        
+        //MARK: - GameScene 불러오기
+        let scene = GameScene(size: view.bounds.size)
+        scene.scaleMode = .aspectFit
+        view.presentScene(scene)
+        view.ignoresSiblingOrder = true  // 컴퓨터에게 개체를 그리는 순서를 맡긴다
+        view.showsFPS = true // 프레임 표시
+        view.showsNodeCount = true // node의 개수 표시
+        view.showsPhysics = true // 물리바디 표시
+    }
+}
+
+    // 화면을 회전했을 때 따라오느냐
+    override var shouldAutorotate: Bool {
+        return true
     }
 
+    // landscape mode
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         if UIDevice.current.userInterfaceIdiom == .phone {
             return .allButUpsideDown
@@ -39,7 +40,9 @@ class GameViewController: UIViewController {
         }
     }
 
+    // status bar를 표시할 것이냐
     override var prefersStatusBarHidden: Bool {
         return true
     }
+    
 }
