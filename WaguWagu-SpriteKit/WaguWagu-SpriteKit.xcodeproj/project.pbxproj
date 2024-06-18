@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		950DE0962C21516800735DD7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950DE0952C21516800735DD7 /* AppDelegate.swift */; };
-		950DE0982C21516800735DD7 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 950DE0972C21516800735DD7 /* GameScene.sks */; };
 		950DE09A2C21516800735DD7 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 950DE0992C21516800735DD7 /* Actions.sks */; };
 		950DE09C2C21516800735DD7 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950DE09B2C21516800735DD7 /* GameScene.swift */; };
 		950DE09E2C21516800735DD7 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950DE09D2C21516800735DD7 /* GameViewController.swift */; };
@@ -20,7 +19,6 @@
 /* Begin PBXFileReference section */
 		950DE0922C21516800735DD7 /* WaguWagu-SpriteKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WaguWagu-SpriteKit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		950DE0952C21516800735DD7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		950DE0972C21516800735DD7 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		950DE0992C21516800735DD7 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
 		950DE09B2C21516800735DD7 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		950DE09D2C21516800735DD7 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -60,7 +58,6 @@
 			isa = PBXGroup;
 			children = (
 				950DE0952C21516800735DD7 /* AppDelegate.swift */,
-				950DE0972C21516800735DD7 /* GameScene.sks */,
 				950DE0992C21516800735DD7 /* Actions.sks */,
 				950DE09B2C21516800735DD7 /* GameScene.swift */,
 				950DE09D2C21516800735DD7 /* GameViewController.swift */,
@@ -129,7 +126,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				950DE0982C21516800735DD7 /* GameScene.sks in Resources */,
 				950DE0A12C21516800735DD7 /* Base in Resources */,
 				950DE0A32C21516900735DD7 /* Assets.xcassets in Resources */,
 				950DE09A2C21516800735DD7 /* Actions.sks in Resources */,
