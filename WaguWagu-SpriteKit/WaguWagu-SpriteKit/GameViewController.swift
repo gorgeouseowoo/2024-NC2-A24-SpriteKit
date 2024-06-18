@@ -22,7 +22,7 @@ class GameViewController: UIViewController {
         view.ignoresSiblingOrder = true  // 컴퓨터에게 개체를 그리는 순서를 맡긴다
         view.showsFPS = true // 프레임 표시
         view.showsNodeCount = true // node의 개수 표시
-        view.showsPhysics = true // 물리바디 표시
+        view.showsPhysics = false // 물리바디 표시
     }
 }
 

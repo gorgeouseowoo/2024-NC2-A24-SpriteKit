@@ -15,6 +15,7 @@
 		950DE0A32C21516900735DD7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 950DE0A22C21516900735DD7 /* Assets.xcassets */; };
 		950DE0A62C21516900735DD7 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 950DE0A52C21516900735DD7 /* Base */; };
 		950DE0AD2C21540000735DD7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950DE0AC2C21540000735DD7 /* Constants.swift */; };
+		950DE0B12C21714600735DD7 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950DE0B02C21714600735DD7 /* Player.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		950DE0A22C21516900735DD7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		950DE0A52C21516900735DD7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		950DE0AC2C21540000735DD7 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		950DE0B02C21714600735DD7 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 				950DE09B2C21516800735DD7 /* GameScene.swift */,
 				950DE0AC2C21540000735DD7 /* Constants.swift */,
 				950DE09D2C21516800735DD7 /* GameViewController.swift */,
+				950DE0B02C21714600735DD7 /* Player.swift */,
 				950DE09F2C21516800735DD7 /* Main.storyboard */,
 				950DE0A22C21516900735DD7 /* Assets.xcassets */,
 				950DE0A42C21516900735DD7 /* LaunchScreen.storyboard */,
@@ -146,6 +149,7 @@
 				950DE09C2C21516800735DD7 /* GameScene.swift in Sources */,
 				950DE09E2C21516800735DD7 /* GameViewController.swift in Sources */,
 				950DE0962C21516800735DD7 /* AppDelegate.swift in Sources */,
+				950DE0B12C21714600735DD7 /* Player.swift in Sources */,
 				950DE0AD2C21540000735DD7 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
