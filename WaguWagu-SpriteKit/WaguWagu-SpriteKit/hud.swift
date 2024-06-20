@@ -24,21 +24,22 @@ class Hud: SKNode {
         self.screenSize = screenSize
         
         addScoreLabel()
-        addLive()
+//        addLive()
     }
     
     func addScoreLabel() {
-        scoreLabel.text = "Score: 0"
+        scoreLabel.text = "SCORE: 0"
         scoreLabel.fontName = "SF Pro"
         scoreLabel.fontColor = .black
-        scoreLabel.fontSize = 30
-        scoreLabel.position.x = 250
+        scoreLabel.fontSize = 20
+        scoreLabel.position.x = 260
         scoreLabel.position.y = screenSize.height - 100
         scoreLabel.horizontalAlignmentMode = .left
         scoreLabel.zPosition = Layer.hud
         self.addChild(scoreLabel)
     }
     
+    //MARK: - 목숨
     func addLive() {
         for live in 1...3 {
             let liveNode = SKSpriteNode(imageNamed: "level")

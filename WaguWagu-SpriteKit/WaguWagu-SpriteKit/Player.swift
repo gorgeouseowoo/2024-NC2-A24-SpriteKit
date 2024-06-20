@@ -7,20 +7,6 @@
 
 import SpriteKit
 
-//class Player: SKSpriteNode {
-//    var screenSize: CGSize!
-//
-//    init(screenSize: CGSize) {
-//        self.screenSize = screenSize
-//        let playerTexture = Atlas.gameobject.textureNamed("waguPlayer")
-//        super.init(texture: playerTexture, color: SKColor.clear, size: playerTexture.size())
-//        self.zPosition = Layer.player
-//    }
-//
-//    required init?(coder aDecoder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-//}
 
 class Player: SKSpriteNode {
     var screenSize: CGSize!
@@ -52,10 +38,18 @@ class Player: SKSpriteNode {
     
     //⚠️MARK: - 이미지 변경 함수⚠️
     func gettingFat() {
+        if currentPlayerIndex == 5 {
+            currentPlayerIndex = 1
+        }
+        
         currentPlayerIndex += 1
         if currentPlayerIndex > 4 {
-            //게임 종료 장치를 해야돼
-            currentPlayerIndex = 1
+            
+            // GameScene의 gameOver() 메서드 호출
+            if let scene = self.scene as? GameScene {
+                scene.gameOver()
+            }
+            //return
         }
         let playerTexture = SKTexture(imageNamed: "waguPlayer\(currentPlayerIndex)")
         let action = SKAction.setTexture(playerTexture)

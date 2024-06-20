@@ -11,16 +11,23 @@ struct Particle {
     static let hit = "hit"
 }
 
-struct Image {
+struct ImageAsset {
     static let background = "backGround"
 }
 
 struct Layer {
-    static let background: CGFloat = 0
+    static let background1: CGFloat = 0
+    static let background2: CGFloat = 0.1
+    static let upper: CGFloat = 0.2
     static let itemHealthy: CGFloat = 1
-    static let itemHealthy2: CGFloat = 3
     static let itemYum: CGFloat = 2
     static let player: CGFloat = 10
+    static let gameover: CGFloat = 20
+    
+    
+    static let boxLayer: CGFloat = 30
+    static let buttonLayer: CGFloat = 31
+    static let tex: CGFloat = 32
 
     static let hud: CGFloat = 30
 }
