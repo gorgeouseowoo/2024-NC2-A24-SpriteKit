@@ -20,6 +20,7 @@
 		950DE0B52C21B7D200735DD7 /* hud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950DE0B42C21B7D200735DD7 /* hud.swift */; };
 		951E65A82C22E5F900B789EA /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951E65A72C22E5F900B789EA /* StartView.swift */; };
 		951E65AA2C22E60100B789EA /* ReplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951E65A92C22E60100B789EA /* ReplayView.swift */; };
+		95F6D7232C2406DF00367C9D /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F6D7222C2406DF00367C9D /* SplashViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		950DE0B42C21B7D200735DD7 /* hud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hud.swift; sourceTree = "<group>"; };
 		951E65A72C22E5F900B789EA /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		951E65A92C22E60100B789EA /* ReplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplayView.swift; sourceTree = "<group>"; };
+		95F6D7222C2406DF00367C9D /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 				950DE0AC2C21540000735DD7 /* Constants.swift */,
 				950DE0B22C21924900735DD7 /* hit.sks */,
 				950DE09D2C21516800735DD7 /* GameViewController.swift */,
+				95F6D7222C2406DF00367C9D /* SplashViewController.swift */,
 				950DE0B02C21714600735DD7 /* Player.swift */,
 				951E65A72C22E5F900B789EA /* StartView.swift */,
 				951E65A92C22E60100B789EA /* ReplayView.swift */,
@@ -162,6 +165,7 @@
 				950DE09C2C21516800735DD7 /* GameScene.swift in Sources */,
 				950DE0B52C21B7D200735DD7 /* hud.swift in Sources */,
 				950DE09E2C21516800735DD7 /* GameViewController.swift in Sources */,
+				95F6D7232C2406DF00367C9D /* SplashViewController.swift in Sources */,
 				951E65AA2C22E60100B789EA /* ReplayView.swift in Sources */,
 				950DE0962C21516800735DD7 /* AppDelegate.swift in Sources */,
 				950DE0B12C21714600735DD7 /* Player.swift in Sources */,

@@ -12,9 +12,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     //MARK: - 타이머 컨테이너
     var itemHealthyTimer = Timer()
-    var itemHealthyInterval: TimeInterval = 1.2
+    var itemHealthyInterval: TimeInterval = 1
     var itemYumTimer = Timer()
-    var itemYumInterval: TimeInterval = 1
+    var itemYumInterval: TimeInterval = 1.2
     
     var gameViewController: GameViewController?
     
@@ -48,8 +48,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.isPaused = true
         
         saveHighScore()
-        
-        //        gameOverr = true
         //        gameViewController?.viewReplayScreen()
     }
     //MARK: - 게임continue
@@ -63,6 +61,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     //        return continueScreen
     //    }
     //
+    
     //MARK: - 게임continue
     func creatContinueScreen() -> SKSpriteNode {
         // continueScreen 전역변수로 설정 - 이유는 함수 외부에서도 접근하기 위해
@@ -72,7 +71,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         continueScreen.alpha = 0.9 // 투명도
         
         let finishLabel = SKLabelNode(text: "FINISH")
-        finishLabel.fontName = "SF Pro"
+        finishLabel.fontName = "SFProText"
         finishLabel.fontSize = 34
         finishLabel.fontColor = .black
         finishLabel.position = CGPoint(x: 0, y: size.height * 0.13 )
@@ -88,7 +87,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         scoreLabel.zPosition = Layer.tex
         continueScreen.addChild(scoreLabel)
         
-        let highScoreLabel = SKLabelNode(text: String(format:"BEST: %d", self.hud.score, UserDefaults.standard.integer(forKey: "highScore")))
+//        let highScoreLabel = SKLabelNode(text: String(format:"BEST: %d", self.hud.score, UserDefaults.standard.integer(forKey: "highScore")))
+        let highScoreLabel = SKLabelNode(text: String(format:"BEST: %d", UserDefaults.standard.integer(forKey: "highScore")))
         highScoreLabel.fontName = "SFProText-Bold"
         highScoreLabel.fontSize = 28
         highScoreLabel.fontColor = .black
@@ -98,7 +98,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let continueLabel = SKLabelNode(text: "REPLAY")
         continueLabel.name = "replay"
-        continueLabel.fontName = "SF Pro"
+        continueLabel.fontName = "SFProText"
         continueLabel.fontSize = 34
         continueLabel.position = CGPoint(x: 0, y: -size.height / 10)
         continueLabel.zPosition = Layer.tex
@@ -126,14 +126,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     //MARK: - HighScore 저장
     func saveHighScore() {
+        print("1 \(UserDefaults.standard.integer(forKey: "highScore"))") // 이게 문제??
         let userDefaults = UserDefaults.standard
         let highScore = userDefaults.integer(forKey: "highScore")
         
         if self.hud.score > highScore {
             userDefaults.set(self.hud.score, forKey: "highScore")
         }
-        userDefaults.synchronize()
+        
+        print("2 \(UserDefaults.standard.integer(forKey: "highScore"))") // 작동 잘됨
+//        userDefaults.synchronize()
     }
+    
+    
     
     override func didMove(to view: SKView) {
         
@@ -170,8 +175,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //MARK: - player 배치
         player = Player(screenSize: self.size)
         player.position = CGPoint(x: size.width / 2, y: player.size.height * 3)
-        //        player.xScale = 0.2
-        //        player.yScale = 0.2
         self.addChild(player)
     }
     
@@ -180,7 +183,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //        let randomItemHealthy = UInt32.random(in: 0...2)
         let randomItemHealthy = arc4random_uniform(UInt32(3)) + 1 // 3가지 중 랜덤 선택
         let randomXPos = CGFloat(arc4random_uniform(UInt32(self.size.width))) // 위치 랜덤
-//                let randomSpeed = TimeInterval(arc4random_uniform(UInt32(6)) + 6) // Speed 랜덤
+//    let randomSpeed = TimeInterval(arc4random_uniform(UInt32(3)) + 3) // Speed 랜덤
         
         //        let texture = Atlas.gameobject.textureNamed("itemHealthy\(randomItemHealthy)")
         
@@ -201,29 +204,33 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         itemHealthy.physicsBody?.collisionBitMask = 0
         
         self.addChild(itemHealthy)
-        
-        //        let moveAct = SKAction.moveTo(y: -itemHealthy.size.height, duration: randomSpeed)
-        let moveAct = SKAction.moveTo(y: -itemHealthy.size.height, duration: 3) //화면 바깥으로 보낸다
+
+        let moveAct = SKAction.moveTo(y: -itemHealthy.size.height, duration: 2) //화면 바깥으로 보낸다
         let removeAct = SKAction.removeFromParent() //사용되지 않은 객체를 화면에서 삭제
-        
         itemHealthy.run(SKAction.sequence([moveAct, removeAct]))
     }
     
     
+    
+    
+    
+    
     //MARK: - itemYum 추가 함수
+    
     func additemYum() {
+        
         let randomItemYum = arc4random_uniform(UInt32(3)) + 1
         let randomXPos = CGFloat(arc4random_uniform(UInt32(self.size.width)))
-        
+        let randomSpeed = TimeInterval(arc4random_uniform(UInt32(2)) + 2)
+
         let itemYum = SKSpriteNode(imageNamed: "itemYum\(randomItemYum)")
-        
         itemYum.name = "itemYum"
         itemYum.xScale = 0.2
         itemYum.yScale = 0.2
-        itemYum.position = CGPoint(x: randomXPos, y: self.size.height + itemYum.size.height) // 화면에서 보이지 않는 바로 위
+        itemYum.position = CGPoint(x: randomXPos, y: self.size.height + itemYum.size.height)
         itemYum.zPosition = Layer.itemYum
         
-        //MARK: - 물리바디 부여
+        //물리바디 부여
         itemYum.physicsBody = SKPhysicsBody(rectangleOf: itemYum.size)
         itemYum.physicsBody?.categoryBitMask = PhysicsCategory.itemYum
         itemYum.physicsBody?.contactTestBitMask = 0
@@ -231,11 +238,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         self.addChild(itemYum)
         
-        let moveAct = SKAction.moveTo(y: -itemYum.size.height, duration: 3) //화면 바깥으로 보낸다
-        let removeAct = SKAction.removeFromParent() //사용되지 않은 객체를 화면에서 삭제
+        let moveAct = SKAction.moveTo(y: -itemYum.size.height, duration: randomSpeed)
+        let removeAct = SKAction.removeFromParent()
         
         itemYum.run(SKAction.sequence([moveAct, removeAct]))
     }
+    
+    
+    
+    
+  
+    
+    
+    
     
     //MARK: - 타이머 함수
     func setTimer(interval: TimeInterval, function:@escaping () -> Void) -> Timer {
@@ -334,14 +349,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         itemHealthyTimer = setTimer(interval: itemHealthyInterval, function: self.additemHealthy)
         itemYumTimer = setTimer(interval: itemYumInterval, function: self.additemYum)
+        print("3 \(UserDefaults.standard.integer(forKey: "highScore"))")
+        //MARK: - score가 다시 0이 됨
+        self.hud.score = 0
+        
+        print("4 \(UserDefaults.standard.integer(forKey: "highScore"))")
         
     }
     
     
     //MARK: - 두 Body의 충돌 확인 함수
     // firstBody - player, secondBody - healthyItem
+    
     func didBegin(_ contact: SKPhysicsContact) {
-        // 충돌한 두 바디 정렬
+        // #1 충돌하는 2개의 객체간 물리바디 정렬하기
         var firstBody = SKPhysicsBody()
         var secondBody = SKPhysicsBody()
         
@@ -351,6 +372,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         } else {
             firstBody = contact.bodyB
             secondBody = contact.bodyA
+        }
+        
+        // #2 충돌 후 액션 발생시키기
+        // 액션 = 스코어 1점 획득
+        if firstBody.categoryBitMask == PhysicsCategory.player && secondBody.categoryBitMask == PhysicsCategory.itemYum { // 충돌 확인
+            print("player and yumItem")
+            
+            self.hud.score += 1 //액션
+            
+            guard let targetNode = secondBody.node as? SKSpriteNode else { return } // secondBody가 targetNod에 전달
+            targetNode.removeFromParent() // secondBody 삭제
         }
         
         //MARK: - 충돌효과
@@ -372,25 +404,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //⚠️MARK: - 이미지 변경⚠️
         // 문제: player가 사라짐 -> 해결 playerNode.removeFromParent() 삭제
+        
         if firstBody.categoryBitMask == PhysicsCategory.player && secondBody.categoryBitMask == PhysicsCategory.itemHealthy {
             print("player and healthyItem")
             
             guard let playerNode = firstBody.node as? Player else { return } // fisrtBody가 targetNod에 전달
             changePlayer2(player: playerNode)
-            //            playerNode.removeFromParent()
-            
             secondBody.node?.removeFromParent()
         }
         
         //⚠️MARK: - 점수 획득⚠️
-        if firstBody.categoryBitMask == PhysicsCategory.player && secondBody.categoryBitMask == PhysicsCategory.itemYum {
-            print("player and yumItem")
-            
-            self.hud.score += 1
-            
-            guard let targetNode = secondBody.node as? SKSpriteNode else { return } // secondBody가 targetNod에 전달
-            targetNode.removeFromParent() // secondBody 삭제
-        }
+        
+        
+       
     }
 }
 

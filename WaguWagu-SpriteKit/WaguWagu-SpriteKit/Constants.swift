@@ -21,6 +21,8 @@ struct Layer {
     static let upper: CGFloat = 0.2
     static let itemHealthy: CGFloat = 1
     static let itemYum: CGFloat = 2
+    static let item: CGFloat = 2.2
+    
     static let player: CGFloat = 10
     static let gameover: CGFloat = 20
     
@@ -41,6 +43,7 @@ struct PhysicsCategory {
     static let player: UInt32 = 0x1 << 0
     static let itemHealthy: UInt32 = 0x1 << 2
     static let itemYum: UInt32 = 0x1 << 3
-    static let itemHealthy2: UInt32 = 0x1 << 4
 }
+
+
 
