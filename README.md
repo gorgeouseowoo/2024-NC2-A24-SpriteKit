@@ -4,11 +4,13 @@
 
 (추후 만들어진 유튜브 링크 추가)
 
+
 **💡 About SpriteKit**
 
 > SpriteKit란? 2D 애니메이션을 만드는 프레임 워크로, “게임 개발을 쉽게 도와주는 도구”
 애니메이션, 피직스 시뮬레이션, 파티클 시스템 등 다양한 기능을 제공하는데요, 이 기능을 활용하면 캐릭터 이동, 시각 효과와 같은 애니메이션을 제작할 수 있기 때문에 생동감 넘치는 2D 게임을 만들 수 있습니다.
 > 
+
 
 **🎯 What we focus on?**
 
@@ -20,6 +22,7 @@
 > - 피직스 시뮬레이션
 >     - 중력에 의해 떨어지거나, 캐릭터가 벽에 부딪혀 튕겨나오는 동작, 물체가 폭발하는 효과 등 상호작용을 만들어 게임의 현실감을 더합니다.
 
+
 **💼 Use Case**
 
 > 다이어트에 스트레스 받는 사람을 위해
@@ -29,11 +32,59 @@
 **🖼️ Prototype**
 
 ![프로토타입 001](https://github.com/gorgeouseowoo/2024-NC2-A24-SpriteKit/assets/80272734/e56b5838-7a1a-4433-a200-6916abe34916)
-
 ![프로토타입2 001](https://github.com/gorgeouseowoo/2024-NC2-A24-SpriteKit/assets/80272734/57ddcf77-6f6b-434a-9361-89edf951d573)
 
-(프로토타입과 설명 추가)
 
 **🛠️ About Code**
 
-(핵심 코드에 대한 설명 추가)
+Animation 효과 구현하기
+![코드리뷰 001](https://github.com/gorgeouseowoo/2024-NC2-A24-SpriteKit/assets/80272734/c09130d6-22e1-45ef-9696-7ad84bf0f69f)
+
+''' swift
+func addItem() {
+        let randomItem = arc4random_uniform(UInt32(3)) + 1 // 3가지 아이템 중 랜덤 선택
+        let randomXPos = CGFloat(arc4random_uniform(UInt32(self.size.width))) // 위치 랜덤
+        let itemHealthy = SKSpriteNode(imageNamed: "itemHealthy\(randomItem)") // 이미지 로딩
+        
+        itemHealthy.name = "itemHealthy"
+        itemHealthy.position = CGPoint(x: randomXPos, y: self.size.height + item.size.height) 
+        itemHealthy.zPosition = Layer.item
+    
+	       self.addChild(itemHealthy)
+
+        let moveAct = SKAction.moveTo(y: -itemHealthy.size.height, duration: 2) //화면 바깥으로 보낸다
+        let removeAct = SKAction.removeFromParent() //사용되지 않는 객체를 화면에서 삭제
+        itemHealthy.run(SKAction.sequence([moveAct, removeAct])) // Action 순서대로 실행
+    }
+
+
+Physic Simultaion 구현하기
+![코드리뷰2 001](https://github.com/gorgeouseowoo/2024-NC2-A24-SpriteKit/assets/80272734/49ccbcdb-5701-44f2-afcf-ab9ea1118889)
+
+''' swift
+func didBegin(_ contact: SKPhysicsContact) {
+	
+	// #1 충돌하는 2개의 객체간 물리바디 정렬하기 
+	var firstBody = SKPhysicsBody()
+       var secondBody = SKPhysicsBody()
+        
+       if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
+            firstBody = contact.bodyA
+            secondBody = contact.bodyB
+       } else {
+            firstBody = contact.bodyB
+            secondBody = contact.bodyA
+	     }
+        
+  // #2 충돌 후 액션 발생시키기
+  // 액션 = 이미지 변경 
+		  if firstBody.categoryBitMask == PhysicsCategory.player && secondBody.categoryBitMask == PhysicsCategory.itemHealthy {
+	      guard let playerNode = firstBody.node as? Player else { return } 
+	      changePlayer2(player: playerNode)
+	      secondBody.node?.removeFromParent()
+			}
+}
+
+'''
+
+
